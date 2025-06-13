@@ -31,16 +31,14 @@ Here's how to use it:
 uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 
 if uploaded_file:
-    # Header is on second row (index 1)
     df = pd.read_csv(uploaded_file, header=1)
 
-    # Normalize column names
     df.columns = df.columns.str.strip().str.title()
 
-    st.subheader("📄 Data Preview")
+    st.subheader("Data Preview")
     st.dataframe(df.head())
 
-    st.subheader("🔍 Ask a Question")
+    st.subheader("Ask a Question")
 
     query_type = st.selectbox("Select a query type", [
         "How many projects done for a company?",
@@ -81,8 +79,7 @@ if uploaded_file:
                 st.write("### Matching Projects:")
                 st.dataframe(matching_rows)
 
-    # Optional full table view
-    with st.expander("📁 Full Data Table"):
+    with st.expander("Full Data Table"):
         st.dataframe(df)
 
 else:
