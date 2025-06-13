@@ -3,7 +3,30 @@ import pandas as pd
 
 st.set_page_config(page_title="CSV Query Tool", layout="wide")
 
-st.title("📊 CSV Sheet Query & Analysis Tool")
+st.title(" CSV Sheet Query & Analysis Tool")
+with st.expander("How it works"):
+    st.markdown("""
+Here's how to use it:
+
+1. **Upload your CSV file**
+   - Go to FILE->Export-> Download as CSV UTF-8 file
+   - Click the uploader and select your file.
+   - The tool expects the actual column headers to be on the second row of the file.(as in the original file)
+
+2. **Preview your data**
+   - You’ll see a few rows from the file to confirm it loaded correctly.
+
+3. **Ask a question**
+   - Choose a question type from the dropdown.
+   - Enter a company name, country, or keyword depending on your question.
+
+4. **View results**
+   - The tool shows how many matching projects were found.
+   - It also lists all the matching rows in a table.
+
+5. **See full data (optional)**
+   - You can open the full table at the bottom to see all the data.
+    """)
 
 uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 
