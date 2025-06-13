@@ -47,17 +47,19 @@ if uploaded_file:
     ])
 
     if query_type == "How many projects done for a company?":
-        company = st.text_input("Enter company name (e.g., Tata Chemicals)")
+        company = st.text_input("Enter company name (e.g. Tata or Tata Consultancy Services )")
         if company:
-            matching_rows = df[df["Company"].str.lower() == company.lower()]
+            mask = df["Company"].str.lower().str.contains(company.lower(), na=False)
+            matching_rows = df[mask]
             count = len(matching_rows)
-            st.success(f"{count} project(s) done for {company}")
+
+            st.success(f"{count} project(s) found with company name containing '{company}'")
             if count > 0:
                 st.write("### Matching Projects:")
                 st.dataframe(matching_rows)
 
     elif query_type == "Which is the last project done in a country?":
-        country = st.text_input("Enter country (e.g., China)")
+        country = st.text_input("Enter country (e.g. China)")
         if country:
             filtered = df[df["Country"].str.lower() == country.lower()]
             if not filtered.empty:
@@ -68,7 +70,7 @@ if uploaded_file:
                 st.warning(f"No projects found in {country}")
 
     elif query_type == "How many projects done on a topic (keyword)?":
-        keyword = st.text_input("Enter topic keyword (e.g., Customer satisfaction)").lower()
+        keyword = st.text_input("Enter topic keyword (e.g. Customer satisfaction)").lower()
         if keyword:
             keyword_cols = ['Keyword1', 'Keyword2', 'Keyword3', 'Keyword4']
             match_mask = df[keyword_cols].apply(lambda x: x.astype(str).str.lower().str.contains(keyword)).any(axis=1)
